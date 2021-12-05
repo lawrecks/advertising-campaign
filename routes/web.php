@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+$CampaignController = App\Http\Controllers\CampaignController::class;
+
+Route::get('/', [$CampaignController, 'fetch'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [$CampaignController, 'fetch'])->name('home');
+Route::get('/create', [$CampaignController, 'show_create'])->name('show_create');
+Route::post('/create', [$CampaignController, 'store'])->name('create');
