@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Advertising Campaigns
+                <div class="card-header">Campaigns
                     @auth
                         <a href="{{route('show_create')}}" class="btn btn-primary create-btn">Create campaign</a>
                     @endauth
@@ -48,22 +48,23 @@
                                     <th>End Date</th>
                                     <th>Total Budget</th>
                                     <th>Daily Budget</th>
-                                    <th>Date created</th>
+                                    <th>Images</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($campaigns as $campaign)
                                     <tr>
                                         <td>{{$campaign->name}}</td>
-                                        <td>{{$campaign->from_date}}</td>
-                                        <td>{{$campaign->to_date}}</td>
-                                        <td>{{$campaign->total_budget}}</td>
-                                        <td>{{$campaign->daily_budget}}</td>
-                                        <td>{{\Carbon\Carbon::parse($campaign->created_at)->format('d M, Y')}}</td>
+                                        <td>{{\Carbon\Carbon::parse($campaign->from_date)->format('d M, Y')}}</td>
+                                        <td>{{\Carbon\Carbon::parse($campaign->to_date)->format('d M, Y')}}</td>
+                                        <td>{{number_format($campaign->total_budget, 2)}}</td>
+                                        <td>{{number_format($campaign->daily_budget, 2)}}</td>
+                                        <td><preview-button campaign_id="{{$campaign->id}}"></preview-button></td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <preview></preview>
                         @else
                             <p class="text-center">No advertising campaign has been created</p>
                         @endif

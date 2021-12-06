@@ -12,6 +12,12 @@ class CampaignController extends Controller
         $this->campaign = $campaign;
     }
 
+    private function checkAuth () {
+        if (auth()->guest()) {
+            return view('home');
+        }
+    }
+
     private function validate_campaign ($request) {
         $request->validate([
             'name' => 'required|string',
@@ -56,9 +62,7 @@ class CampaignController extends Controller
     }
 
     public function show_create () {
-        if (auth()->guest()) {
-            return view('home');
-        }
+        $this->checkAuth();
         return view('create');
     }
 }
