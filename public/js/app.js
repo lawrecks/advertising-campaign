@@ -2108,12 +2108,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       campaign_id: "",
-      images: []
+      images: [],
+      showPreview: false
     };
   },
   methods: {
@@ -2133,6 +2147,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
 
                 if (response.data.status === "success") {
+                  _this.showPreview = true;
                   _this.images = response.data.data;
                 }
 
@@ -2146,6 +2161,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     dismissPopUp: function dismissPopUp() {
       this.images = [];
+      this.showPreview = false;
     }
   },
   mounted: function mounted() {
@@ -2287,7 +2303,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.image-container[data-v-eaf22da6] {\n    position: absolute;\n    z-index: 10;\n    background: #ffffff;\n    top: 50px;\n    right: 100px;\n    left: 100px;\n    text-align: center;\n    border: 2px solid #d2d2d2;\n    padding: 50px;\n}\n.image-container > div[data-v-eaf22da6] {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.image-container img[data-v-eaf22da6] {\n    margin: 10px;\n    width: 100px;\n    height: 100px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.image-container[data-v-eaf22da6] {\n    position: absolute;\n    z-index: 10;\n    background: #ffffff;\n    top: 50px;\n    right: 100px;\n    left: 100px;\n    text-align: center;\n    border: 2px solid #d2d2d2;\n    padding: 50px;\n}\n.image-container > div > div[data-v-eaf22da6] {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.image-container img[data-v-eaf22da6] {\n    margin: 10px;\n    width: 100px;\n    height: 100px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21037,30 +21053,54 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.images.length > 0
+  return _vm.showPreview
     ? _c("div", { staticClass: "image-container alert-dismissible" }, [
-        _c("h5", { staticClass: "text-center" }, [_vm._v("Campaign images")]),
+        _vm.showPreview && _vm.images.length > 0
+          ? _c("div", [
+              _c("h5", { staticClass: "text-center" }, [
+                _vm._v("Campaign images"),
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn-close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: { click: _vm.dismissPopUp },
+                },
+                [_c("span", { attrs: { "aria-hidden": "true" } })]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                _vm._l(_vm.images, function (img, index) {
+                  return _c("img", {
+                    key: index,
+                    attrs: { src: "/" + img.file_url, alt: "" },
+                  })
+                }),
+                0
+              ),
+            ])
+          : _vm._e(),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn-close",
-            attrs: { type: "button", "aria-label": "Close" },
-            on: { click: _vm.dismissPopUp },
-          },
-          [_c("span", { attrs: { "aria-hidden": "true" } })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          _vm._l(_vm.images, function (img, index) {
-            return _c("img", {
-              key: index,
-              attrs: { src: "/" + img.file_url, alt: "" },
-            })
-          }),
-          0
-        ),
+        _vm.showPreview && _vm.images.length === 0
+          ? _c("div", [
+              _c("h6", { staticClass: "text-center" }, [
+                _vm._v("No images here..."),
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn-close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: { click: _vm.dismissPopUp },
+                },
+                [_c("span", { attrs: { "aria-hidden": "true" } })]
+              ),
+            ])
+          : _vm._e(),
       ])
     : _vm._e()
 }
@@ -21091,7 +21131,7 @@ var render = function () {
     _c(
       "button",
       { staticClass: "btn btn-primary", on: { click: _vm.createEvent } },
-      [_vm._v("\n        View" + _vm._s(_vm.campaign_id) + "\n    ")]
+      [_vm._v("\n        View\n    ")]
     ),
   ])
 }

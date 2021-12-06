@@ -12,7 +12,7 @@ class CampaignController extends Controller
         $this->campaign = $campaign;
     }
 
-    private function checkAuth () {
+    private function check_auth () {
         if (auth()->guest()) {
             return view('home');
         }
@@ -62,7 +62,20 @@ class CampaignController extends Controller
     }
 
     public function show_create () {
-        $this->checkAuth();
+        $this->check_auth();
         return view('create');
+    }
+
+    public function show_edit ($id) {
+        $this->check_auth();
+        $campaign = $this->campaign->find($id);
+        return view('edit', compact('campaign'));
+    }
+
+    public function edit (Request $request, $id) {
+        $data = $request->except('_token');
+        $campaign = $this->campaign->find($id);
+        $campaign->update($data);
+        return redirect('home')->with('status', 'Campaign edited successfully');
     }
 }

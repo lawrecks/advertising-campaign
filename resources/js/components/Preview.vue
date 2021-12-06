@@ -1,21 +1,34 @@
 <template>
-    <div class="image-container alert-dismissible" v-if="images.length > 0">
-        <h5 class="text-center">Campaign images</h5>
-        <button
-            @click="dismissPopUp"
-            type="button"
-            class="btn-close"
-            aria-label="Close"
-        >
-            <span aria-hidden="true"></span>
-        </button>
-        <div>
-            <img
-            v-for="(img, index) in images"
-            v-bind:key="index"
-            :src="`/${img.file_url}`"
-            alt=""
-        />
+    <div class="image-container alert-dismissible" v-if="showPreview">
+        <div v-if="showPreview && images.length > 0">
+            <h5 class="text-center">Campaign images</h5>
+            <button
+                @click="dismissPopUp"
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+            >
+                <span aria-hidden="true"></span>
+            </button>
+            <div>
+                <img
+                    v-for="(img, index) in images"
+                    v-bind:key="index"
+                    :src="`/${img.file_url}`"
+                    alt=""
+                />
+            </div>
+        </div>
+        <div v-if="showPreview && images.length === 0">
+            <h6 class="text-center">No images here...</h6>
+             <button
+                @click="dismissPopUp"
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+            >
+                <span aria-hidden="true"></span>
+            </button>
         </div>
     </div>
 </template>
@@ -28,6 +41,7 @@ export default {
         return {
             campaign_id: "",
             images: [],
+            showPreview: false,
         };
     },
 
@@ -37,11 +51,13 @@ export default {
                 `/api/v1/get-images/${this.campaign_id}`
             );
             if (response.data.status === "success") {
+                this.showPreview = true;
                 this.images = response.data.data;
             }
         },
         dismissPopUp() {
             this.images = [];
+            this.showPreview = false;
         },
     },
 
@@ -66,7 +82,7 @@ export default {
     border: 2px solid #d2d2d2;
     padding: 50px;
 }
-.image-container > div {
+.image-container > div > div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

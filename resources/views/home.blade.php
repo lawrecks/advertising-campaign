@@ -49,6 +49,7 @@
                                     <th>Total Budget</th>
                                     <th>Daily Budget</th>
                                     <th>Images</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,6 +61,7 @@
                                         <td>{{number_format($campaign->total_budget, 2)}}</td>
                                         <td>{{number_format($campaign->daily_budget, 2)}}</td>
                                         <td><preview-button campaign_id="{{$campaign->id}}"></preview-button></td>
+                                        <td><a class="btn btn-secondary" href="{{ route('show_edit', $campaign->id) }}">Edit</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
