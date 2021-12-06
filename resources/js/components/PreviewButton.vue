@@ -1,7 +1,7 @@
 <template>
     <div>
         <button @click="createEvent" class="btn btn-primary">
-            View{{ campaign_id }}
+            View
         </button>
     </div>
 </template>
