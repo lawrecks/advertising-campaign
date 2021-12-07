@@ -32,18 +32,6 @@ class CampaignSeeder extends Seeder
             'from_date' => '2021-12-03',
         ]);
 
-        foreach ($campaigns as $campaign) {
-            $created = Campaign::create($campaign);
-            $images = [];
-            array_push($images, [
-                'campaign_id' => $created->id,
-                'file_url' => 'images/facebook.png'
-            ]);
-            array_push($images, [
-                'campaign_id' => $created->id,
-                'file_url' => 'images/twitter.png'
-            ]);
-            DB::table('images')->insert($images);
-        }
+        DB::table('campaigns')->insert($campaigns);
     }
 }
