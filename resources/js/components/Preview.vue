@@ -14,7 +14,7 @@
                 <img
                     v-for="(img, index) in images"
                     v-bind:key="index"
-                    :src="`/${img.file_url}`"
+                    :src="`/storage/${img.file_url}`"
                     alt=""
                 />
             </div>
