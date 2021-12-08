@@ -25,7 +25,8 @@
   -  Run ``` php artisan key:generate ```
   -  Run ``` php artisan serve ```
 
-### Pull Docker image
+### Pull and run docker image
 To pull the docker image
   -  Run ``` docker pull lawrecks/advertising-campaign ```
   -  Run ``` docker images ``` to confirm successful pull
+  -  Run ``` docker run -p 8090:8090 -d lawrecks/advertising-campaign ```
